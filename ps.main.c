@@ -6,7 +6,7 @@
 /*   By: dmazo-ga <dmazo-ga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:12:36 by dmazo-ga          #+#    #+#             */
-/*   Updated: 2025/02/03 11:20:17 by dmazo-ga         ###   ########.fr       */
+/*   Updated: 2025/02/03 14:04:30 by dmazo-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int	inpcount, char	**input)
 {
 	t_stack	*a;
 	t_stack	*b;
-	int	stacksize;
+	int	stacksize;	
 	
 	a = inputcheck(inpcount, input);
 	b = NULL;
