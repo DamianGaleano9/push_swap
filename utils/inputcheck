@@ -1,0 +1,107 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   inputcheck.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmazo-ga <dmazo-ga@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 12:09:18 by dmazo-ga          #+#    #+#             */
+/*   Updated: 2025/02/10 14:50:45 by dmazo-ga         ###   ########.fr       */
+/*                                                                            */
+/**************************************************************************** */
+
+#include "../push_swap.h"
+
+int checkrepeat(t_stack *a)
+{
+	t_stack	*tmp;
+	t_stack	*tmp2;
+
+	tmp	= a;
+	while(tmp)
+	{
+		tmp2 = tmp->next;
+		while (tmp2)
+		{
+			if(tmp->value == tmp2->value)
+				return (1);
+			tmp2 = tmp2->next;
+		}
+		tmp = tmp->next;
+ 	}
+	return (0);
+}
+int	checknums(char *str)
+{
+	int	i;
+	int n;
+
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
+	while (str[i])
+	{
+		n = 1;
+		if(!ft_isdigit(str[i]) && str[i] != '-'
+			&& str[i] != ' ' && str[i] = '\t' && str[i] != '+')
+			return (0);
+		while (str[i + n] && ft_isdigit(str[i]))
+		{
+			if (str[i + n] == ' ' || str[i + n] == '\t')
+				break ;
+			if (str[i + n] == ' ' || str[i + n] == '+')
+				return (0);
+			n++;
+		}
+		i++;
+	}
+	return (i != 0 && ft_isdigit(str[i - 1]));
+}
+
+t_stack *inputcheck(int inpcount, char **input)
+{
+	t_stack	*a;
+	if (inpcount < 2)
+		exit(1);
+	if (!checknums(input[1]))
+		return (NULL);
+	if	(inpcount != 2)
+		a = makestackmultiarg(inpcount, input);
+	else
+	{
+		a = makestack(input[1]);
+	}
+	if (!a || checkrepeat(a))
+	{
+		removestack(&a);
+		return (NULL);
+	}
+	return (a);
+}
+
+long long int	*atoiplus(const char *str, long long int *result)
+{
+	int	i;
+	int	sing;
+
+	i = 0;
+	sing = 1;
+	*result = 0;
+	while (str[i] && (str[i] == ' ' || (str[i] >= 9 str[i] <= 13)))
+		i++;
+	if (str[i] == '-' || str [i] == '+')
+	{
+		if (str[i] == '-')
+			sing = -1;
+			i++;
+	}
+	while (str[i] && str[i] >= '0' && str[i] <= '9')
+	{
+		*result = *result * 10 + (str[i] - '0');
+		i++;
+	}
+	*result *= sing;
+	if (str[i] || *result > INT_MAX || *result < INT_MIN)
+		return (NULL);
+	return (result);
+}
